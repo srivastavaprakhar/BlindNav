@@ -1,0 +1,59 @@
+2025-06-22 10:43:17,443 | INFO | app.routes | Fetching and describing URL: https://example.com
+2025-06-22 10:43:18,295 | ERROR | app.routes | Error while processing request
+Traceback (most recent call last):
+  File "C:\Users\Prakhar Srivastava\Desktop\PROJECTS\BlindNav\app\routes.py", line 14, in describe_page
+    description = generate_description(elements)
+  File "C:\Users\Prakhar Srivastava\Desktop\PROJECTS\BlindNav\services\interpreter.py", line 21, in generate_description
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",  # or use local LLM if needed
+        messages=[{"role": "user", "content": prompt}]
+    )
+  File "C:\Users\Prakhar Srivastava\Desktop\PROJECTS\BlindNav\venv\Lib\site-packages\openai\lib\_old_api.py", line 39, in __call__
+    raise APIRemovedInV1(symbol=self._symbol)
+openai.lib._old_api.APIRemovedInV1: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+
+2025-06-22 10:50:40,634 | INFO | app.routes | Fetching and describing URL: https://example.com
+2025-06-22 10:50:43,883 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-06-22 10:50:43,884 | INFO | openai._base_client | Retrying request to /chat/completions in 0.456629 seconds
+2025-06-22 10:50:45,102 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-06-22 10:50:45,103 | INFO | openai._base_client | Retrying request to /chat/completions in 0.810773 seconds
+2025-06-22 10:50:46,228 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-06-22 10:50:46,231 | ERROR | app.routes | Error while processing request
+Traceback (most recent call last):
+  File "C:\Users\Prakhar Srivastava\Desktop\PROJECTS\BlindNav\app\routes.py", line 14, in describe_page
+    description = generate_description(elements)
+  File "C:\Users\Prakhar Srivastava\Desktop\PROJECTS\BlindNav\services\interpreter.py", line 21, in generate_description
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",  # or gpt-4
+    ...<2 lines>...
+        ]
+    )
+  File "C:\Users\Prakhar Srivastava\Desktop\PROJECTS\BlindNav\venv\Lib\site-packages\openai\_utils\_utils.py", line 287, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\Prakhar Srivastava\Desktop\PROJECTS\BlindNav\venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 925, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<43 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Prakhar Srivastava\Desktop\PROJECTS\BlindNav\venv\Lib\site-packages\openai\_base_client.py", line 1249, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Prakhar Srivastava\Desktop\PROJECTS\BlindNav\venv\Lib\site-packages\openai\_base_client.py", line 1037, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-06-22 11:02:46,810 | INFO | app.routes | Fetching and describing URL: https://example.com
+2025-06-22 11:08:20,305 | INFO | app.routes | Fetching and describing URL: https://example.com
+2025-06-22 11:09:32,181 | INFO | app.routes | Fetching and describing URL: https://example.com

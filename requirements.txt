@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+beautifulsoup4
+requests
+openai
+pyttsx3
+SpeechRecognition
+pydantic
+selenium
+python-dotenv
+llama-cpp-python
+pyaudio
